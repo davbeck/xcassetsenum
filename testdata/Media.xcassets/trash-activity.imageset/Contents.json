@@ -1,0 +1,16 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "filename" : "trash-activity.pdf"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "trash-activity~iPad.pdf"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

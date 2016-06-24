@@ -44,7 +44,7 @@ func (c *Catalog) writeEnum() {
 		panic(err)
 	}
 
-	outPath := filepath.Join(filepath.Dir(c.CatalogPath), c.EnumName+".swift")
+	outPath := c.outputPath()
 	f, err := os.Create(outPath)
 	if err != nil {
 		panic(err)
@@ -54,6 +54,10 @@ func (c *Catalog) writeEnum() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (c *Catalog) outputPath() string {
+	return filepath.Join(filepath.Dir(c.CatalogPath), c.EnumName+".swift")
 }
 
 // Convert a string with varying word delimination to camel case.

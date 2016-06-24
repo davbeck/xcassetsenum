@@ -53,7 +53,6 @@ If you add xcassetsenum as a run script build phase of your project, anytime you
 
 ## To Do:
 
-- [ ] Write tests
 - [ ] Document Xcode integration
 - [ ] Add `--output` argument to change where the file is saved.
 - [ ] Add `--template` argument to change the swift source template.
