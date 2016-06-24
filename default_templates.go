@@ -1,6 +1,6 @@
 package main
 
-var defaultSwift3Template = `import UIKit
+var defaultSwiftTemplate = `import UIKit
 
 // this class is used to find the bundle the file is in
 private class {{.EnumName}}Class: NSObject {}

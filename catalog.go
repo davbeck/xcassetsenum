@@ -4,15 +4,12 @@ import "os"
 import "io/ioutil"
 import "path/filepath"
 import "text/template"
-import "github.com/mkideal/cli"
 import "strings"
 import "fmt"
 
 type Catalog struct {
-	cli.Helper
-	CatalogPath   string `cli:"*c,catalog" usage:"The xcassets catalog to process into a Swift enum. Required."`
-	AccessControl string `cli:"a,access_control" usage:"The access to grant for the generated enum, such as public, private, internal. Defaults to nothing, which causes Swift to use internal." dft:"internal"`
-	SwiftVersion  string `cli:"s,swift_version" usage:"The version of swift to generate." dft:"2.3"`
+	CatalogPath   string
+	AccessControl string
 
 	// generated properties
 	EnumName     string
@@ -21,10 +18,10 @@ type Catalog struct {
 }
 
 // Load the catalog from .CatalogPath and set generated properties accordingly.
-func (c *Catalog) loadAssets() {
+func NewCatalog(catalogPath string, accessControl string) *Catalog {
 	var assets = make(map[string]string)
 
-	files, _ := ioutil.ReadDir(c.CatalogPath)
+	files, _ := ioutil.ReadDir(catalogPath)
 	for _, f := range files {
 		if filepath.Ext(f.Name()) == ".imageset" {
 			filename := strings.TrimSuffix(f.Name(), filepath.Ext(f.Name()))
@@ -34,14 +31,15 @@ func (c *Catalog) loadAssets() {
 		}
 	}
 
-	c.Assets = assets
-	c.EnumName = cammelCase(strings.TrimSuffix(filepath.Base(c.CatalogPath), filepath.Ext(c.CatalogPath))) + "Asset"
-	c.EnumInitName = strings.ToLower(c.EnumName[0:1]) + c.EnumName[1:]
+	enumName := cammelCase(strings.TrimSuffix(filepath.Base(catalogPath), filepath.Ext(catalogPath))) + "Asset"
+	enumInitName := strings.ToLower(enumName[0:1]) + enumName[1:]
+
+	return &Catalog{CatalogPath: catalogPath, AccessControl: accessControl, EnumName: enumName, EnumInitName: enumInitName, Assets: assets}
 }
 
 // Write the Swift source code to a file.
 func (c *Catalog) writeEnum() {
-	tmpl, err := template.New("swift3").Parse(defaultSwift3Template)
+	tmpl, err := template.New("swift").Parse(defaultSwiftTemplate)
 	if err != nil {
 		panic(err)
 	}
