@@ -21,7 +21,11 @@ type Catalog struct {
 func NewCatalog(catalogPath string, accessControl string) *Catalog {
 	var assets = make(map[string]string)
 
-	files, _ := ioutil.ReadDir(catalogPath)
+	files, err := ioutil.ReadDir(catalogPath)
+	if err != nil {
+		panic(err)
+	}
+
 	for _, f := range files {
 		if filepath.Ext(f.Name()) == ".imageset" {
 			filename := strings.TrimSuffix(f.Name(), filepath.Ext(f.Name()))
