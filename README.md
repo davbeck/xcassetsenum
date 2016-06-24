@@ -57,3 +57,4 @@ If you add xcassetsenum as a run script build phase of your project, anytime you
 - [ ] Add `--output` argument to change where the file is saved.
 - [ ] Add `--template` argument to change the swift source template.
 - [ ] Upload prebuilt binary for macOS.
+- [ ] Add better error handling.
