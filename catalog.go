@@ -5,7 +5,6 @@ import "io/ioutil"
 import "path/filepath"
 import "text/template"
 import "strings"
-import "fmt"
 
 type Catalog struct {
 	CatalogPath   string
@@ -73,7 +72,7 @@ func cammelCase(input string) string {
 	var allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 	for _, char := range input {
-		charString := fmt.Sprintf("%c", char)
+		charString := string(byte(char))
 
 		if strings.Contains(allowed, charString) {
 			if capatalizeNext {
