@@ -12,8 +12,8 @@ extension UIImage {
 		{{- end }}
 	}
     
-	{{.AccessControl}} convenience init!({{.EnumInitName}}: {{.EnumName}}, compatibleWithTraitCollection: UITraitCollection? = nil) {
-		self.init(named: {{.EnumInitName}}.rawValue, inBundle: NSBundle(forClass: {{.EnumName}}Class.self), compatibleWithTraitCollection: compatibleWithTraitCollection)
+	{{.AccessControl}} convenience init({{.EnumInitName}}: {{.EnumName}}, compatibleWithTraitCollection: UITraitCollection? = nil) {
+		self.init(named: {{.EnumInitName}}.rawValue, inBundle: NSBundle(forClass: {{.EnumName}}Class.self), compatibleWithTraitCollection: compatibleWithTraitCollection)!
 	}
 }
 `
